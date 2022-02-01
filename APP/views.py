@@ -34,8 +34,6 @@ from sheet2api import Sheet2APIClient
 
 sheet = client.open('Return Record 2022')
 sheet_instance = sheet.get_worksheet(0)
-
-
 records_data = sheet_instance.get_all_records()
 records_data
 
@@ -52,24 +50,54 @@ def table2022(request):
     return render(request,'table2022.html',{'package2022':package2022})
 
 
+
+
+
 sheet2021 = client.open('Return Record 2020-2021')
 sheet_instance2021 = sheet2021.get_worksheet(0)
 records_data2021 = sheet_instance2021.get_all_records()
 records_data2021
 
-package2021=list(filter(lambda records_data2021: records_data2021["处理情况"] == "缺包装", records_data2021))
+package20211=list(filter(lambda records_data2021: records_data2021["处理情况"] == "缺包装", records_data2021))
+package20212=list(filter(lambda records_data2021: records_data2021["处理情况"] == "缺包装(lack of packaging)", records_data2021))
+package2021=package20211+package20212
+
 for d in package2021:
     d['Receipt'] = d.pop('收货日期')
     d['PN'] = d.pop('产品型号')
     d['Num'] = d.pop('数量')
     d['Receiver'] = d.pop('签收人（receiver）')
+    d['Ma'] = d.pop('包装物料')
 package2021
 
 def table2021(request):
     return render(request,'table2021.html',{'package2021':package2021})
 
+
+
+
+sheetfs2022 = client.open('Return Record 2022')
+sheet_instancefs2022 = sheet.get_worksheet(0)
+records_datafs2022 = sheet_instancefs2022.get_all_records()
+records_datafs2022
+
+fs2022=list(filter(lambda records_datafs2022: records_datafs2022["RMA"].startswith("FS"), records_datafs2022))
+for d in fs2022:
+    d['Receipt'] = d.pop('收货日期\nReceipt Date')
+    d['PN'] = d.pop('产品型号\nP/N')
+    d['Num'] = d.pop('数量\nNumber')
+    d['Receiver'] = d.pop('签收人\nReceiver')
+fs2022
+    
+def fs2022(request):
+    return render(request,'fs2022.html',{'fs2022':fs2022})
+
+
+
 def index(request):
     return render(request,'index.html')
+
+
 
 def chart(request):
     return render(request,'charts.html')
