@@ -80,21 +80,24 @@
                 Addons
             </div>
 
-          
-
-
-           <!-- Nav Item - Tables -->
+                <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item active">
-                <a class="nav-link" href="{% url 'table2021' %}">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+                    aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>2020-2021 缺包装</span></a>
+                    <span>缺包装</span>
+                </a>
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">缺包装列表:</h6>
+                        <a class="collapse-item" href="{% url 'table2021' %}">2020-2021 缺包装</a>
+                        <a class="collapse-item active" href="{% url 'table2022' %}">2022 缺包装</a>
+                    </div>
+                </div>
             </li>
-                  <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'table2022' %}">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>2022 缺包装</span></a>
-            </li>
+       
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -195,10 +198,12 @@
                                             <th>ID</th>
                                             <th>数量</th>
                                             <th>签收人</th>
+                                            <th>包装物料</th>
                                         </tr>
                                     </thead>
-                             {% for element in package2022 %}
-                                    <tbody>
+                                <tbody>
+                                    {% for element in package2022 %}
+
                                         <tr>
                                             <td>{{ element.Receipt}}</td>
                                             <td>{{ element.RMA }}</td>
@@ -206,10 +211,11 @@
                                             <td>{{ element.ID }}</td> 
                                             <td>{{ element.Num }}</td>
                                             <td>{{ element.Receiver}}</td>
+                                            <td>{{ element.包装物料}}</td>
                                         </tr>
-                                         
+                                 {% endfor %}      
                                     </tbody>
-                             {% endfor %}
+                         
                                 </table>
                             </div>
                         </div>
