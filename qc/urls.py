@@ -17,14 +17,17 @@ from django.contrib import admin
 from django.urls import path
 from APP.views import table2021
 from APP.views import table2022
+from APP.views import fs2022
 from APP.views import chart
 from APP.views import index
 from APP.views import base
 
 
+
 urlpatterns = [
     path('22/', table2022, name='table2022'), 
     path('21/', table2021, name='table2021'), 
+    path('fs22/', fs2022, name='fs2022'), 
     path('chart/', chart, name='chart'), 
     path('index/', index, name='index'), 
     path('0/', base), 
